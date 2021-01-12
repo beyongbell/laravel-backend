@@ -2,25 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\UserRegisterRequest;
+use App\Http\Resources\User as UserResource;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(UserRegisterRequest $request)
     {
-        $request->validate([
-            'email'    => 'required|unique:users|email',
-            'name'     => 'required',
-            'password' => 'required|min:6',
-        ]);
-
-        $user = User::create([
-            'email'    => $request->email,
-            'name'     => $request->name,
-            'password' => bcrypt($request->password)
-        ]);
-
-        return $user;
+        $user = User::create($request->validated());
+        return new UserResource($user);
     }
 }
