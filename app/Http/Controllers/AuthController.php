@@ -11,6 +11,13 @@ class AuthController extends Controller
     public function register(UserRegisterRequest $request)
     {
         $user = User::create($request->validated());
-        return new UserResource($user);
+
+        if (!$token = auth()->attempt($request->only(['email', 'password']))) {
+            return abort(401);
+        }
+
+        return (new UserResource($request->user()))->additional([
+            'meta' => ['token' => $token]
+        ]);
     }
 }
