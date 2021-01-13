@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Http\Requests\UserRegisterRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\User as UserResource;
 
 class AuthController extends Controller
@@ -33,5 +34,10 @@ class AuthController extends Controller
         return (new UserResource($request->user()))->additional([
             'meta' => ['token' => $token]
         ]);
+    }
+
+    public function user(Request $request)
+    {
+        return new UserResource($request->user());
     }
 }
