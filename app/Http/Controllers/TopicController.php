@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Http\Requests\TopicCreateRequest;
+use App\Http\Requests\TopicUpdateRequest;
 use App\Http\Resources\Topic as TopicResource;
 
 class TopicController extends Controller
@@ -33,6 +34,13 @@ class TopicController extends Controller
 
     public function show(Topic $topic)
     {
+        return new TopicResource($topic);
+    }
+
+    public function update(TopicUpdateRequest $request, Topic $topic)
+    {
+        $topic->title = $request->title;
+        $topic->save();
         return new TopicResource($topic);
     }
 }
