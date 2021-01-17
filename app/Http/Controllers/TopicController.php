@@ -7,6 +7,7 @@ use App\Models\Topic;
 use App\Http\Requests\TopicCreateRequest;
 use App\Http\Requests\TopicUpdateRequest;
 use App\Http\Resources\Topic as TopicResource;
+use Illuminate\Support\Facades\Gate;
 
 class TopicController extends Controller
 {
@@ -39,6 +40,7 @@ class TopicController extends Controller
 
     public function update(TopicUpdateRequest $request, Topic $topic)
     {
+        Gate::authorize('update', $topic);
         $topic->title = $request->title;
         $topic->save();
         return new TopicResource($topic);
