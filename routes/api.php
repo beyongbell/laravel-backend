@@ -13,4 +13,5 @@ Route::prefix('topics')->group(function () {
     Route::get('/', [TopicController::class, 'index']);
     Route::get('/{topic}', [TopicController::class, 'show']);
     Route::patch('/{topic}', [TopicController::class, 'update'])->middleware('auth:api');
+    Route::delete('/{topic}', [TopicController::class, 'destroy'])->middleware('auth:api');
 });

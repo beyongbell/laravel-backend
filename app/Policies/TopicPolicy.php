@@ -26,4 +26,9 @@ class TopicPolicy
         return $user->id === $topic->user_id;
         // return $user->id === $topic->user_id ? Response::allow() : Response::deny('You do not own this post.');
     }
+
+    public function destroy(User $user, Topic $topic)
+    {
+        return $user->id === $topic->user_id;
+    }
 }
