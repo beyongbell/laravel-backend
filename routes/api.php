@@ -10,4 +10,5 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::prefix('topics')->group(function () {
     Route::post('/', [TopicController::class, 'store'])->middleware('auth:api');
+    Route::get('/', [TopicController::class, 'index']);
 });
