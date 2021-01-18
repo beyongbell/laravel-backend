@@ -24,8 +24,8 @@ class PostController extends Controller
 
     public function update(PostUpdateRequest $request, Topic $topic, Post $post)
     {
-        Gate::authorize('update', $topic);
-        $post->body - $request->body;
+        Gate::authorize('update', $post);
+        $post->body = $request->body;
         $post->save();
         return new PostResource($post);
     }
