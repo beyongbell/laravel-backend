@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TopicController;
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -14,4 +15,8 @@ Route::prefix('topics')->group(function () {
     Route::get('/{topic}', [TopicController::class, 'show']);
     Route::patch('/{topic}', [TopicController::class, 'update'])->middleware('auth:api');
     Route::delete('/{topic}', [TopicController::class, 'destroy'])->middleware('auth:api');
+
+    Route::prefix('/{topic}/posts')->group(function () {
+        Route::post('/', [PostController::class, 'store'])->middleware('auth:api');
+    });
 });
