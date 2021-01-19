@@ -22,6 +22,11 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
+    public function show(Request $request, Topic $topic, Post $post)
+    {
+        return new PostResource($post);
+    }
+
     public function update(PostUpdateRequest $request, Topic $topic, Post $post)
     {
         Gate::authorize('update', $post);
