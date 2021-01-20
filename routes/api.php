@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TopicController;
 
@@ -21,5 +22,9 @@ Route::prefix('topics')->group(function () {
         Route::post('/', [PostController::class, 'store'])->middleware('auth:api');
         Route::patch('/{post}', [PostController::class, 'update'])->middleware('auth:api');
         Route::delete('/{post}', [PostController::class, 'destroy'])->middleware('auth:api');
+
+        Route::prefix('/{post}/likes')->group(function () {
+            Route::post('/', [LikeController::class, 'store'])->middleware('auth:api');
+        });
     });
 });
